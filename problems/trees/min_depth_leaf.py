@@ -1,5 +1,17 @@
 from tree import Tree
 
+def height(t):
+    """
+    Find maximum depth
+    """
+    if t.children == []:
+        return 0
+    else:
+        subtree_heights = []
+        for st in t.children:
+            subtree_heights.append(height(st))
+        return 1 + max(subtree_heights)
+
 def min_depth_leaf(tree):
     """
     Computes the minimum depth of a leaf in the tree (length of shortest
@@ -9,8 +21,15 @@ def min_depth_leaf(tree):
     
     Returns: (integer) the minimum depth of of a leaf in the tree.
     """
-
-    pass
+    if tree.children == []:
+        return 0
+    else:
+        subtree_heights = []
+        for st in tree.children:
+            subtree_heights.append(min_depth_leaf(st))
+        return 1 + min(subtree_heights)
+        
+    
 
 
 #############################################################
@@ -102,9 +121,7 @@ def test_min_depth_leaf_20(trees_min_depth_leaf):
 
 @pytest.fixture(scope="session")
 def trees_min_depth_leaf():
-    """
-    Fixture for loading the trees for min_depth_leaf
-    """
+    
     return get_trees()
 
 def get_trees():

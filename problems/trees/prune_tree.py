@@ -13,7 +13,9 @@ def prune_tree(tree, keys_to_discard):
     
     Returns: (Tree) the pruned tree.
     '''
-    
+    # base: root of the tree --> return original tree
+    # recursive: if children of the tree does not match key, add
+    # prune_tree(children, keys_to_discard) to the tree
     pass
 
 

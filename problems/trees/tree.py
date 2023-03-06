@@ -106,3 +106,7 @@ class Tree(object):
         """
         
         self.__print_r(u"", False, kformat, vformat, maxdepth)
+
+    def __copy__(self):
+        copy_tree = Tree(self.key, self.value)
+        return copy_tree

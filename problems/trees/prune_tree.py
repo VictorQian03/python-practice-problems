@@ -14,16 +14,15 @@ def prune_tree(tree, keys_to_discard):
     
     Returns: (Tree) the pruned tree.
     '''
-
-    new_tree = copy.deepcopy(tree)
-    if tree.num_children() == 0:
-        return new_tree
+    new_tree = tree.__copy__()
     if tree.key in keys_to_discard:
-        return None
+        return "Bad tree"
+    if tree.num_children() == 0:
+        return tree
     
     for children in tree.children:
         new_branch = prune_tree(children, keys_to_discard)
-        if new_branch is not None and new_branch.key not in keys_to_discard:
+        if new_branch != "Bad tree":
             new_tree.add_child(new_branch)
     
     return new_tree

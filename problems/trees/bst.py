@@ -21,6 +21,16 @@ class Empty:
 
     def insert(self, n):
         return Node(n, Empty(), Empty())
+    
+
+    def inorder(self):
+        return []
+    
+    def min_item(self):
+        return None
+    
+    def max_item(self):
+        return None
 
 
 class Node:
@@ -58,9 +68,36 @@ class Node:
         else:
             return self
 
+    def inorder(self):
+        if self.is_empty():
+            return []
+        return self.ascending_helper([])
+
+    def ascending_helper(node, traversal):
+        if node.is_empty():
+            return []
+        if not node.left.is_empty():
+            node.left.ascending_helper(traversal)
+        traversal.append(node.value)
+        if not node.right.is_empty():
+            node.right.ascending_helper(traversal)
+        return traversal
+    
+    def min_item(self):
+        if self.is_leaf():
+            return self.value
+        return self.left.min_item()
+    
+    def max_item(self):
+        if self.is_leaf():
+            return self.value
+        return self.right.max_item()
 
 if __name__ == "__main__":
-    bst = Empty().insert(42).insert(10).insert(15).insert(63)
+    bst = Empty().insert(42)
+    bst = bst.insert(60).insert(17).insert(29).insert(5).insert(53)
 
     print(f"The number of nodes is {bst.num_nodes()}")
     print(f"The height is {bst.height()}")
+    print(f"The list of nodes is {bst.inorder()}")
+    print(f"The minimum value is {bst.min_item()}")
